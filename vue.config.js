@@ -2,7 +2,7 @@ module.exports = {
   devServer: {
     disableHostCheck: true
   },
-  publicPath: process.env.NODE_ENV === 'production' ? './mtg-vue/' : './',
+  publicPath: process.env.NODE_ENV === 'production' ? './mtg_vue/' : './',
 	chainWebpack: config => {
 		if(config.plugins.has('extract-css')) {
 			const extractCSSPlugin = config.plugin('extract-css')
