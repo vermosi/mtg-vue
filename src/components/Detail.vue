@@ -9,13 +9,9 @@ import Info from './Info'
 
 export default {
   name: 'Detail',
-  props: ['cardImage','cardText','cardTitle'],
+  props: ['cardImage','cardText','cardTitle','cardPricing'],
   components: {
     Info
-  },
-  data () {
-      return {
-      }
-    }
+  }
 };
 </script>

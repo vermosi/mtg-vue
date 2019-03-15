@@ -22,7 +22,7 @@
   const url = 'https://api.scryfall.com/cards/named?fuzzy=';
   export default {
     name: 'Search',
-    props: ['currentComponent'],
+    props: ['currentComponent', 'cardResults'],
     data() {
       return {
         loading: false,
@@ -45,6 +45,7 @@
             // otherwise (array), go to result
           })
           .catch(error => console.error('Error:',error))
+
       },
       checkLocalStorage(){
         if (localStorage.getItem('mtgdata') !== null) {
