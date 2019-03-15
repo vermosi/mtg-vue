@@ -1,28 +1,58 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app dark>
+    <v-toolbar app>
+      <v-toolbar-title class="headline text-uppercase">
+
+        <h1>MTG<span class="font-weight-light">VUE</span></h1>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn
+        flat
+        href="#"
+      >
+        <span class="mr-2">Random</span>
+      </v-btn>
+    </v-toolbar>
+
+    <v-content>
+      <Search/>
+      <!-- <Result :cardImage="cardImage"/> -->
+      <!-- <Detail :cardText="cardText" :cardImage="cardImage" :cardTitle="cardTitle"/> -->
+      <component :is="currentComponent" v-on:click-card="goToDetail" :currentComponent="currentComponent" :cardText="cardText" :cardImage="cardImage" :cardTitle="cardTitle">
+      </component>
+    </v-content>
+    <v-footer fixed>
+      <v-spacer></v-spacer>
+      <div>Made with &hearts; by Vermosi in Nashville, TN - &copy; {{ new Date().getFullYear() }}</div>
+      <v-spacer></v-spacer>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Search from './components/Search'
+import Detail from './components/Detail'
+import Result from './components/Result'
 export default {
-  name: 'app',
+  name: 'App',
   components: {
-    HelloWorld
+    Search,
+    Detail,
+    Result
+  },
+  data () {
+    return {
+      currentComponent: "Result",
+      cardText: '',
+      cardImage: '',
+      cardTitle: ''
+      //
+    }
+  },
+  methods: {
+    goToDetail(name) {
+      this.currentComponent = "Detail";
+    }
   }
-}
+};
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
