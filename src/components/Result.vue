@@ -1,30 +1,27 @@
 <template>
 	<v-container>
-		<v-layout>
-			<v-flex xs12 sm12>
-				<v-container grid-list-xl fluid >
-					<v-layout row wrap>
-						<v-img class="image" v-on:click="$emit('click-card', 'birds of paradise')"></v-img>
-					</v-layout>
+		<v-layout align-start justify-start row fill-height >
+			<h2 v-if="error">NOPE</h2>
+			<v-img v-for="card in cards" :key="card.id" class="image" :src="card.image_uris.normal" v-on:click="$emit('click-card', card.name)"></v-img>
+		</v-layout>
 					<!-- grab images via array magically rows of 4 -->
-			</v-container>
-		</v-flex>
-	</v-layout>
 </v-container>
 </template>
 
 <script>
 export default {
 	name: 'Result',
+	props: ['cards', 'error'],
 	data () {
 		return {
-			cards: []
+
 		}
 	},
 	created () {
-		if (localStorage.getItem('mtgdata') !== null){
-			this.cards = localStorage.getItem('mtgdata')
-		}
+
+		// if (localStorage.getItem('mtgdata') !== null){
+		// 	this.cards = localStorage.getItem('mtgdata')
+		// }
 	},
 	methods: {
 
@@ -35,6 +32,8 @@ export default {
 <style scoped>
 
 .image {
+
+
 	border-radius: 20px;
 }
 

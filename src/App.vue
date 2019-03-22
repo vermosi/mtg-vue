@@ -16,7 +16,7 @@
 
     <v-content>
       <Search v-on:search-cards="searchData" />
-      <component :is="currentComponent" :cards="cards" :currentComponent="currentComponent">
+      <component :is="currentComponent" :error="error" :cards="cards" :currentComponent="currentComponent">
       </component>
     </v-content>
     <v-footer fixed>
@@ -40,22 +40,30 @@ export default {
   },
   data () {
     return {
-      currentComponent: "",
+      currentComponent: "Result",
       cardResults: [],
 			cards: [],
+			error: ""
     }
   },
   methods: {
     searchData(searchTerm) {
 			const url = 'https://api.scryfall.com/cards/named?fuzzy=';
+			this.cards = []
       this.error = this.post = null
       this.loading = true
       let self = this
       fetch(url + searchTerm)
-      .then(res => res.json())
+      .then(res => {
+				if (res.status === 200) {
+					return res.json()
+				}else {
+					self.error = "No results found";
+				}
+			})
       .then(response => {
         var cardsData = response
-        self.cards.push(cardsData)
+        self.cards = new Array(cardsData);
         // if (self.cards.length < 1){
         //   self.swapComponent = "Detail"
         // }
@@ -63,7 +71,10 @@ export default {
             // If 1 card (object), go to detail
             // otherwise (array), go to result
           })
-      .catch(error => console.error('Error:',error))
+      .catch(error => {
+				console.error('Error:',error);
+
+			})
     },
     checkLocalStorage(){
       if (localStorage.getItem('mtgdata') !== null) {
