@@ -4,7 +4,7 @@
 			<v-flex xs12 sm12>
 				<v-container grid-list-xl fluid >
 					<v-layout row wrap>
-						<v-img class="image" v-on:click="$emit('click-card', 'birds of paradise')" :src="cardImage"></v-img>
+						<v-img class="image" v-on:click="$emit('click-card', 'birds of paradise')"></v-img>
 					</v-layout>
 					<!-- grab images via array magically rows of 4 -->
 			</v-container>
@@ -16,7 +16,6 @@
 <script>
 export default {
 	name: 'Result',
-	props: ['cardImage','cardResults'],
 	data () {
 		return {
 			cards: []

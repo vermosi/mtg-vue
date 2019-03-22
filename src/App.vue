@@ -15,8 +15,8 @@
     </v-toolbar>
 
     <v-content>
-      <Search/>
-      <component :is="currentComponent" v-on:click-card="goToDetail" :currentComponent="currentComponent" :cardText="cardText" :cardImage="cardImage" :cardTitle="cardTitle">
+      <Search v-model="cards" />
+      <component :is="currentComponent" :cards="cards" :currentComponent="currentComponent">
       </component>
     </v-content>
     <v-footer fixed>
@@ -40,30 +40,37 @@ export default {
   },
   data () {
     return {
-      currentComponent: "Result",
-      cardText: '',
-      cardImage: '',
-      cardTitle: '',
-      cardResults: []
-      // //THIS IS ALREADY STRINGIFIED
-      // var string = '{"items":[{"Desc":"Item1"},{"Desc":"Item2"}]}';
-
-      // // DO NOT STRINGIFY AGAIN WHEN WRITING TO LOCAL STORAGE
-      // localStorage.setItem('added-items', string);
-
-      // // READ STRING FROM LOCAL STORAGE
-      // var retrievedObject = localStorage.getItem('added-items');
-
-      // // CONVERT STRING TO REGULAR JS OBJECT
-      // var parsedObject = JSON.parse(retrievedObject);
-
-      // // ACCESS DATA
-      // console.log(parsedObject.items[0].Desc);
+      currentComponent: "",
+      cardResults: [],
+      cards: []
     }
   },
   methods: {
-    goToDetail(name) {
-      this.currentComponent = "Detail";
+    searchData() {
+      this.error = this.post = null
+      this.loading = true
+      let searchTerm = this.search
+      let self = this
+      fetch(url + searchTerm)
+      .then(res => res.json())
+      .then(response => {
+        var cardsData = response
+        self.cards.push(cardsData)
+        if (self.cards.length < 1){
+          self.swapComponent = "Detail"
+        }
+            //TODO: Find if 1 or more cards
+            // If 1 card (object), go to detail
+            // otherwise (array), go to result
+          })
+      .catch(error => console.error('Error:',error))
+    },
+    checkLocalStorage(){
+      if (localStorage.getItem('mtgdata') !== null) {
+        searchData()
+      } else {
+        console.error('Error:',error)
+      }
     }
   }
 };

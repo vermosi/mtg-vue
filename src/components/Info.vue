@@ -2,7 +2,7 @@
 	<v-container>
 		<v-layout row wrap>
 			<v-flex xs12 sm6 md4>
-				<v-img class="image" :src="cardImage"></v-img>
+				<v-img class="image"></v-img>
 			</v-flex>
 			<v-flex xs12 sm6 md4>
 				<div class="card_text">
@@ -57,7 +57,6 @@
 <script>
 export default {
 	name: 'Info',
-	props: ['cardText','cardImage','cardTitle'],
 	data () {
 		return {
 		}
