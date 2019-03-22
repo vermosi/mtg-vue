@@ -15,7 +15,7 @@
     </v-toolbar>
 
     <v-content>
-      <Search v-model="cards" />
+      <Search v-on:search-cards="searchData" />
       <component :is="currentComponent" :cards="cards" :currentComponent="currentComponent">
       </component>
     </v-content>
@@ -42,23 +42,23 @@ export default {
     return {
       currentComponent: "",
       cardResults: [],
-      cards: []
+			cards: [],
     }
   },
   methods: {
-    searchData() {
+    searchData(searchTerm) {
+			const url = 'https://api.scryfall.com/cards/named?fuzzy=';
       this.error = this.post = null
       this.loading = true
-      let searchTerm = this.search
       let self = this
       fetch(url + searchTerm)
       .then(res => res.json())
       .then(response => {
         var cardsData = response
         self.cards.push(cardsData)
-        if (self.cards.length < 1){
-          self.swapComponent = "Detail"
-        }
+        // if (self.cards.length < 1){
+        //   self.swapComponent = "Detail"
+        // }
             //TODO: Find if 1 or more cards
             // If 1 card (object), go to detail
             // otherwise (array), go to result
