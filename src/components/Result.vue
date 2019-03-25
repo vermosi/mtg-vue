@@ -19,7 +19,7 @@
 						</v-flex>
 						<v-flex v-for="card in cards" xs7>
 							<v-card-title primary-title>
-								<div>
+								<div ref="myid">
 									<div class="headline">{{card.name}} {{card.mana_cost}}</div>
 									<p v-for="card in cards">{{card.oracle_text}}</p>
 									<p v-for="card in cards">{{card.power}} {{card.toughness}}</p>
@@ -54,16 +54,13 @@ export default {
 		}
 	},
 	created () {
-
-		// if (localStorage.getItem('mtgdata') !== null){
-		// 	this.cards = localStorage.getItem('mtgdata')
-		// }
+		this.$refs["myid"].children.replace(/([A-Z])|(\s)|([^a-z\d])/g);
 	},
 	methods: {
 
 	}
 };
-</script>
+	</script>
 
 <style scoped>
 

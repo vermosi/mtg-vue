@@ -5,7 +5,7 @@
 
 				<h1>MTG<span class="font-weight-light">VUE</span></h1>
 			</v-toolbar-title>
-			<v-spacer></v-spacer>
+			<v-spacer>(work in progress)</v-spacer>
 			<v-btn
 			flat
 			href="#"
