@@ -8,10 +8,8 @@
           v-model="value"
           :hint="'Try searching for \'Birds of Paradise\'.'"
           :label="`Search`"
-          append-icon="search"
-          v-on:click:append="$emit('search-cards', e.target.value)"
+          v-on:click:append="$emit('search-cards', this.target.value)"
           @submit="handleSearch"
-
           ></v-text-field>
         </v-form>
       </v-flex>

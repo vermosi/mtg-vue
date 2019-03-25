@@ -14,7 +14,7 @@
       </v-btn>
     </v-toolbar>
 
-    <v-content>
+    <v-content dark>
       <Search v-on:search-cards="searchData" />
       <component :is="currentComponent" :error="error" :cards="cards" :currentComponent="currentComponent">
       </component>
@@ -29,13 +29,12 @@
 
 <script>
 import Search from './components/Search'
-import Detail from './components/Detail'
 import Result from './components/Result'
+// import cardsData from './assets/scryfall-oracle-cards.json'
 export default {
   name: 'App',
   components: {
     Search,
-    Detail,
     Result
   },
   data () {
@@ -57,7 +56,7 @@ export default {
       .then(res => {
 				if (res.status === 200) {
 					return res.json()
-				}else {
+				} else {
 					self.error = "No results found";
 				}
 			})
