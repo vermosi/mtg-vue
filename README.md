@@ -1,5 +1,9 @@
 # mtg-vue
 
+## Premise
+
+Used Scryfall's API:(https://scryfall.com/docs/api/) as well as VuetifyJS:(https://vuetifyjs.com/en/) to learn how to use the VueJS:(https://vuejs.org/) Javascript Framework
+
 ## Project setup
 ```
 npm install
