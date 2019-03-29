@@ -19,12 +19,22 @@
 						</v-flex>
 						<v-flex v-for="card in cards" xs7>
 							<v-card-title primary-title>
+<<<<<<< Updated upstream
 								<div ref="myid">
 									<div class="headline">{{card.name}} {{card.mana_cost}}</div>
 									<p v-for="card in cards">{{card.oracle_text}}</p>
 									<p v-for="card in cards">{{card.power}} {{card.toughness}}</p>
 									<p>{{card.flavor_text}}</p>
 									<p>{{card.artist}}</p>
+=======
+								<div>
+									<h3 class="title">{{card.name}} <abbr :style="mana_cost"></abbr></h3>
+									<p class="description">{{card.oracle_text}}</p>
+									<p class="flavor">{{card.flavor_text}}</p>
+									<p class="artist">{{card.artist}}</p>
+									<p class="pnt">{{pnt}}</p>
+									<p>Last printed in: {{card.set_name}}
+>>>>>>> Stashed changes
 									<hr>
 									<div>
 										<v-btn disabled>{{card.legalities.standard}} in Standard</v-btn>
@@ -47,22 +57,45 @@
 <script>
 export default {
 	name: 'Result',
-	props: ['cards', 'error'],
+	props: ['cards', 'error', 'symbols'],
 	data () {
 		return {
 
 		}
 	},
-	created () {
-		this.$refs["myid"].children.replace(/([A-Z])|(\s)|([^a-z\d])/g);
-	},
-	methods: {
-
+	computed: {
+		pnt(e) {
+			if (this.cards[0].power || this.cards[0].toughness) {
+				return `${this.cards[0].power} / ${this.cards[0].toughness}`
+			}
+		},
+		mana_cost(e) {
+			var mana_cost = this.cards[0].mana_cost;
+			var symbols = this.symbols[62];
+			console.log(mana_cost);
+			if (symbols) {
+				symbols.toString(symbol => symbol.code == mana_cost)
+				let symbol = this.symbols.find(symbol => {
+					if (symbol.code == mana_cost) {
+						return `{background-image:${symbol.url};}`
+					}
+				});
+				console.log(symbol);
+			}
+		}
 	}
 };
 	</script>
 
 <style scoped>
+
+.title {
+	padding-bottom:5px;
+}
+
+.flavor, .artist {
+	font-style: italic;
+}
 
 .legal {
 	color: black;

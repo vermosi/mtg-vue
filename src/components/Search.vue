@@ -7,10 +7,9 @@
 					class="md5"
 					v-model="value"
 					:hint="'Try searching for \'Birds of Paradise\'.'"
-					:label="`Search`"
+					:label="`Search for a Magic: the Gathering card...`"
 					v-on:click:append="$emit('search-cards', this.target.value)"
 					@submit="handleSearch"
-
 					></v-text-field>
 				</v-form>
 			</v-flex>
@@ -31,18 +30,11 @@ export default {
 			value: ""
 		}
 	},
-	computed: {
-    // swapComponent: function(component) {
-    //   this.currentComponent = component
-    // }
-},
 methods: {
-    // updateValue: function(e) {
-    //   this.$emit('input', e.target.value)
-		// },
 		handleSearch() {
 			this.$emit('search-cards', this.value);
 		}
 	}
 }
-</script>
+
+	</script>

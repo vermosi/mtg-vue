@@ -2,22 +2,13 @@
 	<v-app dark>
 		<v-toolbar app>
 			<v-toolbar-title class="headline text-uppercase">
-
 				<h1>MTG<span class="font-weight-light">VUE</span></h1>
 			</v-toolbar-title>
-			<v-spacer>(work in progress)</v-spacer>
-			<v-btn
-			flat
-			href="#"
-			>
-			<v-btn class="mr-2">Random</v-btn>
-		</v-btn>
 	</v-toolbar>
 
 	<v-content dark>
 		<Search v-on:search-cards="searchData" />
-		<component :is="currentComponent" :error="error" :cards="cards" :currentComponent="currentComponent">
-		</component>
+		<Result :error="error" :cards="cards" :symbols="symbols" />
 	</v-content>
 	<v-footer fixed>
 		<v-spacer></v-spacer>
@@ -29,8 +20,8 @@
 
 <script>
 import Search from './components/Search'
+import {symbols} from './Symbols'
 import Result from './components/Result'
-// import cardsData from './assets/scryfall-oracle-cards.json'
 export default {
 	name: 'App',
 	components: {
@@ -39,11 +30,14 @@ export default {
 	},
 	data () {
 		return {
-			currentComponent: "Result",
 			cardResults: [],
 			cards: [],
-			error: ""
+			error: "",
+			symbols: []
 		}
+	},
+	created() {
+		this.symbols = symbols
 	},
 	methods: {
 		searchData(searchTerm) {
@@ -68,13 +62,6 @@ export default {
 				console.error('Error:',error);
 
 			})
-		},
-		checkLocalStorage(){
-			if (localStorage.getItem('mtgdata') !== null) {
-				searchData()
-			} else {
-				console.error('Error:',error)
-			}
 		}
 	}
 };
