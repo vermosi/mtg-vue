@@ -3,30 +3,22 @@
 		<v-layout>
 			<v-flex xs12>
 				<v-card>
-					<v-container grid-list-sm fluid>
+					<v-container grid-list-sm fluid class="wrapper">
 						<p class="card-error" v-if="error">Sorry, we didn't find that card. Try using the full name. (e.g.: Birds of Paradise)</p>
 
 						<v-layout row wrap>
 							<v-flex
 							v-for="card in cards"
 							:key="card.mtgo_id"
-							xs5
+							xs12 sm5
 							d-flex
 							>
 							<v-card flat tile class="d-flex">
-								<v-img v-for="card in cards" :key="card.mtgo_id" id="image" :src="card.image_uris.normal"></v-img>
+								<v-img v-for="card in cards" :key="card.oracle_id" id="image" :src="card.image_uris.normal"></v-img>
 							</v-card>
 						</v-flex>
-						<v-flex v-for="card in cards" xs7>
+						<v-flex v-for="card in cards" xs12 sm7>
 							<v-card-title primary-title>
-<<<<<<< Updated upstream
-								<div ref="myid">
-									<div class="headline">{{card.name}} {{card.mana_cost}}</div>
-									<p v-for="card in cards">{{card.oracle_text}}</p>
-									<p v-for="card in cards">{{card.power}} {{card.toughness}}</p>
-									<p>{{card.flavor_text}}</p>
-									<p>{{card.artist}}</p>
-=======
 								<div>
 									<h3 class="title">{{card.name}} <abbr :style="mana_cost"></abbr></h3>
 									<p class="description">{{card.oracle_text}}</p>
@@ -34,15 +26,23 @@
 									<p class="artist">{{card.artist}}</p>
 									<p class="pnt">{{pnt}}</p>
 									<p>Last printed in: {{card.set_name}}
->>>>>>> Stashed changes
-									<hr>
-									<div>
-										<v-btn disabled>{{card.legalities.standard}} in Standard</v-btn>
-										<v-btn disabled>{{card.legalities.modern}} in Modern</v-btn>
-										<v-btn disabled>{{card.legalities.legacy}} in Legacy</v-btn>
-										<v-btn disabled>{{card.legalities.vintage}} in Vintage</v-btn>
-									</div>
-									<hr>
+									<hr class="margin">
+									<v-layout class="rulings">
+										<v-flex xs12>
+											<v-btn v-for="(item, key, index) in card.legalities" :key="card.mtgo_id">
+												{{item}} in {{key}}
+											</v-btn>
+										</v-flex>
+									</v-layout>
+									<hr class="margin">
+									<v-layout class="decks">
+										<v-flex xs12>
+											<v-btn :src="card.related_uris.gatherer">Gatherer Rulings</v-btn>
+											<v-btn :src="card.related_uris.tcgplayer_decks">Decks on TCGPlayer</v-btn>
+											<v-btn :src="card.related_uris.edrec">Decks on EDHREC</v-btn>
+											<v-btn :src="card.related_uris.mtgtop8">Decks on MTGTop8</v-btn>
+										</v-flex>
+									</v-layout>
 								</div>
 							</v-card-title>
 						</v-flex>
@@ -88,6 +88,14 @@ export default {
 	</script>
 
 <style scoped>
+
+.wrapper {
+	margin-bottom: 50px;
+}
+
+.margin {
+	margin: 10px;
+}
 
 .title {
 	padding-bottom:5px;

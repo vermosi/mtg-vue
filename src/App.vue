@@ -12,7 +12,7 @@
 	</v-content>
 	<v-footer fixed>
 		<v-spacer></v-spacer>
-		<div>Made with &hearts;, Scryfall API, VueJS, and VuetifyJS by Vermosi in Nashville, TN - &copy; {{ new Date().getFullYear() }}</div>
+		<div>Made with &hearts; by Vermosi in Nashville, TN - &copy; {{ new Date().getFullYear() }}</div>
 		<v-spacer></v-spacer>
 	</v-footer>
 </v-app>
