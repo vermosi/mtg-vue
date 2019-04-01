@@ -5,7 +5,7 @@
 				<h1>MTG<span class="font-weight-light">VUE</span></h1>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
-			<v-toolbar-items class="hidden-sm-and-down">
+			<v-toolbar-items>
       			<v-btn v-on:click="randomData" flat>Random</v-btn>
       		</v-toolbar-items>
 	</v-toolbar>
