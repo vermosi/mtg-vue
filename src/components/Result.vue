@@ -28,8 +28,8 @@
 									<p>Last printed in: {{card.set_name}}
 									<hr class="margin">
 									<v-layout class="rulings">
-										<v-flex xs12>
-											<v-btn v-for="(item, key, index) in card.legalities" :key="card.mtgo_id">
+										<v-flex>
+											<v-btn xs12 v-for="(item, key, index) in card.legalities" :key="card.mtgo_id">
 												{{item}} in {{key}}
 											</v-btn>
 										</v-flex>
@@ -37,10 +37,10 @@
 									<hr class="margin">
 									<v-layout class="decks">
 										<v-flex xs12>
-											<v-btn :src="card.related_uris.gatherer">Gatherer Rulings</v-btn>
-											<v-btn :src="card.related_uris.tcgplayer_decks">Decks on TCGPlayer</v-btn>
-											<v-btn :src="card.related_uris.edrec">Decks on EDHREC</v-btn>
-											<v-btn :src="card.related_uris.mtgtop8">Decks on MTGTop8</v-btn>
+											<v-btn target="blank" :href="card.related_uris.gatherer">Gatherer Rulings</v-btn>
+											<v-btn target="blank" :href="card.related_uris.tcgplayer_decks">Decks on TCGPlayer</v-btn>
+											<v-btn target="blank" :href="card.related_uris.edhrec">EDHREC Info</v-btn>
+											<v-btn target="blank" :href="card.related_uris.mtgtop8">Decks on MTGTop8</v-btn>
 										</v-flex>
 									</v-layout>
 								</div>
