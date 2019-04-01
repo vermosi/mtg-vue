@@ -2,22 +2,17 @@
 	<v-app dark>
 		<v-toolbar app>
 			<v-toolbar-title class="headline text-uppercase">
-
 				<h1>MTG<span class="font-weight-light">VUE</span></h1>
 			</v-toolbar-title>
-			<v-spacer>(work in progress)</v-spacer>
-			<v-btn
-			flat
-			href="#"
-			>
-			<v-btn class="mr-2">Random</v-btn>
-		</v-btn>
+			<v-spacer></v-spacer>
+			<v-toolbar-items>
+      			<v-btn v-on:click="randomData" flat>Random</v-btn>
+      		</v-toolbar-items>
 	</v-toolbar>
 
 	<v-content dark>
 		<Search v-on:search-cards="searchData" />
-		<component :is="currentComponent" :error="error" :cards="cards" :currentComponent="currentComponent">
-		</component>
+		<Result :error="error" :cards="cards" :symbols="symbols" />
 	</v-content>
 	<v-footer fixed>
 		<v-spacer></v-spacer>
@@ -29,8 +24,8 @@
 
 <script>
 import Search from './components/Search'
+import {symbols} from './Symbols'
 import Result from './components/Result'
-// import cardsData from './assets/scryfall-oracle-cards.json'
 export default {
 	name: 'App',
 	components: {
@@ -39,11 +34,14 @@ export default {
 	},
 	data () {
 		return {
-			currentComponent: "Result",
 			cardResults: [],
 			cards: [],
-			error: ""
+			error: "",
+			symbols: []
 		}
+	},
+	created() {
+		this.symbols = symbols
 	},
 	methods: {
 		searchData(searchTerm) {
@@ -63,18 +61,33 @@ export default {
 			.then(response => {
 				var cardsData = response
 				self.cards = new Array(cardsData);
-        })
+       		})
 			.catch(error => {
 				console.error('Error:',error);
 
 			})
 		},
-		checkLocalStorage(){
-			if (localStorage.getItem('mtgdata') !== null) {
-				searchData()
-			} else {
-				console.error('Error:',error)
-			}
+		randomData(e) {
+			const randomurl = 'https://api.scryfall.com/cards/random/'
+			this.cards = []
+			this.error = this.post = null
+			this.loading = true
+			let self = this
+			fetch(randomurl)
+			.then(res => {
+				if (res.status === 200) {
+					return res.json()
+				} else {
+					self.error = "Random Button Broke"
+				}
+			})
+			.then(response => {
+				var cardsData = response
+				self.cards = new Array(cardsData);
+			})
+			.catch(error => {
+				console.error('Error:',error);
+			})
 		}
 	}
 };
